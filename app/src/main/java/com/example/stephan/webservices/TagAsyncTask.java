@@ -1,15 +1,12 @@
 package com.example.stephan.webservices;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 /**
  * Created by Stephan on 14-3-2016.
  *
- * cant be private?
  */
 public class TagAsyncTask extends AsyncTask<String,Integer,String> {
 
@@ -40,7 +37,6 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
     protected String doInBackground(String... param) {
 
         String search = param[0];
-        Log.v("background", search);
         String request =
                 new HttpRequestHelper().downloadFromServer(search);
         int i = 0;
@@ -55,7 +51,7 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
      */
     @Override
     protected void onProgressUpdate(Integer... progress) {
-        Log.v("progress", "inteeger: " + progress[0]);
+
     }
 
     /**
@@ -63,9 +59,6 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
      */
     @Override
     protected void onPostExecute(String result) {
-        ///showDialog("Downloaded " + result + " bytes");
-        Log.v("donwloaded", result);
-
         mainActivity.processFinish(result);
     }
 

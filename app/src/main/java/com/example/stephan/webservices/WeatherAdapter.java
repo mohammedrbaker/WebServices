@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Stephan on 15-3-2016.
+ *
  */
 public class WeatherAdapter extends ArrayAdapter<WeatherNow>{
 

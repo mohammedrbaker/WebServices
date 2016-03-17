@@ -11,6 +11,7 @@ import java.net.URL;
 
 /**
  * Created by Stephan on 14-3-2016.
+ *
  */
 public class HttpRequestHelper {
     private static final String url1 = "http://api.openweathermap.org/data/2.5/";

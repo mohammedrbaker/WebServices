@@ -15,18 +15,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/userSearch"
             android:layout_weight="1"
-            android:hint="Amsterdam, nl"/>
+            android:hint="@string/hintEditText"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="searchWeather"
-            android:text="Search"/>
+            android:text="@string/seachButton"/>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recentSearch"
+        android:textStyle="bold"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -14,7 +14,8 @@ import java.net.URL;
  */
 public class HttpRequestHelper {
     private static final String url1 = "http://api.openweathermap.org/data/2.5/";
-    private static final String url2 = "&APPID=4b6bdf453a3547d80f28075d55ad6b51";
+    private static final String key = "&APPID=4b6bdf453a3547d80f28075d55ad6b51";
+    private static final String method = "&units=Metric";
 
     protected static synchronized String downloadFromServer(String search){
 
@@ -27,7 +28,7 @@ public class HttpRequestHelper {
         userTag += search;
 
         // get compelete url from strings
-        String compeleteUrl = url1 + userTag + url2;
+        String compeleteUrl = url1 + userTag + method + key;
         Log.v("url", compeleteUrl);
 
         URL url = null;

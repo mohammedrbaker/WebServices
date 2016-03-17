@@ -7,30 +7,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.example.stephan.webservices.MainActivity">
+    tools:context="com.example.stephan.webservices.AdvancedWeatherActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <EditText
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userSearch"
-            android:layout_weight="1"
-            android:hint="Amsterdam, nl"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="searchWeather"
-            android:text="Search"/>
+            android:text="PLACE"/>
     </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewWeather">
-    </ListView>
+        android:text="Advanced shit"/>
 
 </LinearLayout>

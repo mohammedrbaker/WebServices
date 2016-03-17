@@ -1,12 +1,10 @@
 package com.example.stephan.webservices;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.URL;
+import android.widget.Toast;
 
 /**
  * Created by Stephan on 14-3-2016.
@@ -15,16 +13,29 @@ import java.net.URL;
  */
 public class TagAsyncTask extends AsyncTask<String,Integer,String> {
 
-    public interface AsyncResponse {
-        void processFinish(String output);
-    }
-    public AsyncResponse delegate = null;
+    private MainActivity mainActivity;  // Activity to give date
+    private Context context;            // Show updates
 
+    /**
+     * Make Async task.
+     */
+    public TagAsyncTask(MainActivity activity){
+        super();
+        this.mainActivity = activity;
+        this.context = this.mainActivity.getApplicationContext();
+    }
+
+    /**
+     * Before launch
+     */
     @Override
     protected void onPreExecute(){
-        Log.d("PreExceute", "On pre Exceute......");
+        Toast.makeText(context, "Getting data from server", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Launch
+     */
     @Override
     protected String doInBackground(String... param) {
 
@@ -39,17 +50,23 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
         return request;
     }
 
+    /**
+     * Show updates
+     */
     @Override
     protected void onProgressUpdate(Integer... progress) {
-
+        Log.v("progress", "inteeger: " + progress[0]);
     }
 
+    /**
+     * When finished.
+     */
     @Override
     protected void onPostExecute(String result) {
         ///showDialog("Downloaded " + result + " bytes");
         Log.v("donwloaded", result);
 
-        delegate.processFinish(result);
+        mainActivity.processFinish(result);
     }
 
 }

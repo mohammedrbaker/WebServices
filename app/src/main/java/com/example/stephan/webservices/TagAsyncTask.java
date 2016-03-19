@@ -1,8 +1,6 @@
 package com.example.stephan.webservices;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 /**
  * Created by Stephan on 14-3-2016.
@@ -10,16 +8,16 @@ import android.widget.Toast;
  */
 public class TagAsyncTask extends AsyncTask<String,Integer,String> {
 
-    private MainActivity mainActivity;  // Activity to give date
-    private Context context;            // Show updates
+    // you may separate this or combined to caller class.
+    public interface AsyncResponse {
+        void processFinish(String output);
+        void updateProcess(String updateMessage);
+    }
 
-    /**
-     * Make Async task.
-     */
-    public TagAsyncTask(MainActivity activity){
-        super();
-        this.mainActivity = activity;
-        this.context = this.mainActivity.getApplicationContext();
+    public AsyncResponse delegate = null;
+
+    public TagAsyncTask(AsyncResponse delegate){
+        this.delegate = delegate;
     }
 
     /**
@@ -27,7 +25,7 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
      */
     @Override
     protected void onPreExecute(){
-        Toast.makeText(context, "Getting data from server", Toast.LENGTH_SHORT).show();
+        delegate.updateProcess("Getting weather info...");
     }
 
     /**
@@ -37,21 +35,10 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
     protected String doInBackground(String... param) {
 
         String search = param[0];
+        String searchMethod = param[1];
         String request =
-                new HttpRequestHelper().downloadFromServer(search);
-        int i = 0;
-        publishProgress(i);
-
-
+                new HttpRequestHelper().downloadFromServer(search, searchMethod);
         return request;
-    }
-
-    /**
-     * Show updates
-     */
-    @Override
-    protected void onProgressUpdate(Integer... progress) {
-
     }
 
     /**
@@ -59,7 +46,7 @@ public class TagAsyncTask extends AsyncTask<String,Integer,String> {
      */
     @Override
     protected void onPostExecute(String result) {
-        mainActivity.processFinish(result);
+        delegate.processFinish(result);
     }
 
 }

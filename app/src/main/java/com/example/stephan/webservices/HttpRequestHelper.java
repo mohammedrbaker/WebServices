@@ -10,28 +10,29 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Stephan on 14-3-2016.
- *
+ * An request helper for the Open Weather API.
+ * It requires a String search: a city and a String userTag is the kind of information u want.
+ * The kind of information possible can be found: http://openweathermap.org/api
  */
 public class HttpRequestHelper {
-    private static final String url1 = "http://api.openweathermap.org/data/2.5/";
-    private static final String key = "&APPID=4b6bdf453a3547d80f28075d55ad6b51";
-    private static final String method = "&units=Metric";
 
-    protected static synchronized String downloadFromServer(String search){
+    private static final String url1 = "http://api.openweathermap.org/data/2.5/";   // url
+    private static final String key = "&APPID=4b6bdf453a3547d80f28075d55ad6b51";    // key
+    private static final String method = "&units=Metric";                           // use Celsius
 
-        // initialize.
+    /**
+     * The HttpRequistHelper
+     */
+    protected static synchronized String downloadFromServer(String search, String userTag){
+
+        // Initialize
         String returnValue = "";
 
-        // get tag chosen by user.
-        String userTag = "weather?q=";
-
-        userTag += search;
-
-        // get compelete url from strings
-        String compeleteUrl = url1 + userTag + method + key;
+        // Get complete url
+        String compeleteUrl = url1 + userTag + search + method + key;
         Log.v("url", compeleteUrl);
 
+        // Initialize url to null
         URL url = null;
         try {
             url = new URL(compeleteUrl);
@@ -49,6 +50,8 @@ public class HttpRequestHelper {
 
                 // read response
                 Integer response = connection.getResponseCode();
+
+                // handle errors
                 if(response >= 200 && response < 300){
                     // read the data
                     BufferedReader br =
@@ -59,10 +62,14 @@ public class HttpRequestHelper {
                     }
 
                 }
+                // get error
                 else{
                     BufferedReader br =
                             new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-                    // show error code
+                    String line;
+                    while((line = br.readLine()) != null){
+                        returnValue = returnValue + line;
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

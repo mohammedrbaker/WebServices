@@ -11,14 +11,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by Stephan on 15-3-2016.
+ * Adapter to show weather right now.
+ *
+ * Requires an arraylist of WeatherNow.
  *
  */
 public class WeatherAdapter extends ArrayAdapter<WeatherNow>{
 
-    Context context;
-    ArrayList<WeatherNow> weather;
+    Context context;                // to show items.
+    ArrayList<WeatherNow> weather;  // the items.
 
+    /**
+     * Initialize adapter
+     */
     public WeatherAdapter(Context contextOfApp, ArrayList<WeatherNow> weatherCity){
         super(contextOfApp, R.layout.single_row_weather, weatherCity);
 
@@ -28,7 +33,6 @@ public class WeatherAdapter extends ArrayAdapter<WeatherNow>{
 
     /**
      * Initialize View.
-     * Set an OnClick on ImageButton, an OnClick on the View and an OnLongClick on the View.
      */
     public View getView(final int position, View view, ViewGroup parent){
         if(view == null){
@@ -37,31 +41,39 @@ public class WeatherAdapter extends ArrayAdapter<WeatherNow>{
             view = inflater.inflate(R.layout.single_row_weather, parent, false);
         }
 
-        // find Views on ListView.
+        // find Views.
         final TextView weatherInfo = (TextView) view.findViewById(R.id.infoWeather);
         final ImageView weatherIcon = (ImageView) view.findViewById(R.id.imageWeather);
 
+        // get the WeatherNow
         WeatherNow thisWeather = weather.get(position);
 
+        // Get information for TextView
         String temp = thisWeather.getTemp();
         String place = thisWeather.getCity();
         String country = thisWeather.getCountryCode();
         String icon = "image" + thisWeather.getIcon();
         String airDescription = thisWeather.getAirStatus();
-        int iconID = getImage(icon);
 
-        String text = "Temp: " + temp + "\n" + "Place: " +
+        // make text to show
+        String textToShow = "Temp: " + temp + "\n" + "Place: " +
                 place + ", " + country + "\n" + "Air: " + airDescription;
 
+        // get information about the image
+        int iconID = getImage(icon);
 
         // add values to Views.
         weatherIcon.setImageResource(iconID);
-        weatherInfo.setText(text);
+        weatherInfo.setText(textToShow);
 
         // Done.
         return view;
     }
 
+    /**
+     * Return the correct image to show.
+     * On error just show the sun.
+     */
     private int getImage(String icon){
         switch (icon){
             case "image01d":
@@ -101,10 +113,8 @@ public class WeatherAdapter extends ArrayAdapter<WeatherNow>{
             case "image50n":
                 return R.drawable.image50n;
             default:
-                return R.drawable.image50n;
+                return R.drawable.image01d;
 
         }
     }
-
-
 }

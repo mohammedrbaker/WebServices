@@ -43,6 +43,13 @@ public class WeatherSingleton {
     }
 
     /**
+     * Return a single WeatherNow
+     */
+    public WeatherNow getSingleWeather(int position){
+        return weatherNow.get(position);
+    }
+
+    /**
      * Add an weather. Cant be larger then 5
      */
     public void add(WeatherNow newWeatherNow){

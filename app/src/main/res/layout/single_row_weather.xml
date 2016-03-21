@@ -12,7 +12,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoWeather"
-        android:text="Hier komt info te staan"/>
+        android:id="@+id/infoWeather"/>
 
 </LinearLayout>

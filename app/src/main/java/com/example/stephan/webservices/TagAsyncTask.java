@@ -3,19 +3,27 @@ package com.example.stephan.webservices;
 import android.os.AsyncTask;
 
 /**
- * Created by Stephan on 14-3-2016.
+ * asyncTask to get weather information from the internet.
  *
+ * It will use an AsyncResponse to give the information back to the activity.
  */
 public class TagAsyncTask extends AsyncTask<String,Integer,String> {
 
-    // you may separate this or combined to caller class.
+    /**
+     * Function in the activity to give the information.
+     * ! So these functions must be present!
+     */
     public interface AsyncResponse {
         void processFinish(String output);
         void updateProcess(String updateMessage);
     }
 
-    public AsyncResponse delegate = null;
+    // fields
+    public AsyncResponse delegate = null;       // initialize to null;
 
+    /**
+     * Function to set on what activity to respond too.
+     */
     public TagAsyncTask(AsyncResponse delegate){
         this.delegate = delegate;
     }

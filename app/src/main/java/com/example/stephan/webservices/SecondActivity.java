@@ -3,7 +3,6 @@ package com.example.stephan.webservices;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +23,8 @@ public class SecondActivity extends AppCompatActivity implements TagAsyncTask.As
     WeatherDayAdapter adapter;                          // Adapter for ListView
     ListView listView;                                  // ListView to show info.
     final String SEARCHMETHOD = "forecast/daily?q=";    // Search method for api
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog;                      // Wait for data
+    TextView cityTextView;                              // TextView for info and cityname.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +33,19 @@ public class SecondActivity extends AppCompatActivity implements TagAsyncTask.As
 
         // Find ListView
         listView = (ListView) findViewById(R.id.listView);
+        cityTextView = (TextView) findViewById(R.id.dailyInfo);
 
         // Get the place to search the 7 days weather forecast.
         String search = getIntent().getExtras().getString("searchKey");
 
         // make sure you found something.
         if (search != null) {
+            // Show city name
+            String cityText = search + getString(R.string.dailyWeather);
+            cityTextView.setText(cityText);
+
             // Remove all spaces
             search = search.replace(" ", "");
-
 
             // Get information from api
             asyncTask = new TagAsyncTask(this);
@@ -53,7 +57,8 @@ public class SecondActivity extends AppCompatActivity implements TagAsyncTask.As
             listView.setAdapter(adapter);
         }
         else{
-            Toast.makeText(SecondActivity.this, "An error appeared please try again.", Toast.LENGTH_SHORT).show();
+            // When u didn't get a city to search for
+            Toast.makeText(SecondActivity.this, R.string.errorMessage, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -82,10 +87,18 @@ public class SecondActivity extends AppCompatActivity implements TagAsyncTask.As
         }
     }
 
+    /**
+     * Response from asynctask to set tell users they must be patient.
+     */
+    public void updateProcess(String updateMessage){
+        // check if one is already up
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
 
-    public void updateProcess(String updateProcess){
+        // make new one
         progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setMessage(updateProcess);
+        progressDialog.setMessage(updateMessage);
         progressDialog.show();
     }
 
@@ -105,9 +118,6 @@ public class SecondActivity extends AppCompatActivity implements TagAsyncTask.As
 
             for (int i = 0; i < 7; i++) {
                 JSONObject list = (JSONObject) jsonObject.getJSONArray("list").get(i);
-                // city
-                JSONObject city = jsonObject.getJSONObject("city");
-                String name = city.getString("name");
 
                 // date
                 long unixTimestamp = list.getLong("dt");
@@ -122,9 +132,8 @@ public class SecondActivity extends AppCompatActivity implements TagAsyncTask.As
                 String tempMax = temp.getString("max");
                 String tempNight = temp.getString("night");
                 String tempEve = temp.getString("eve");
-                String tempMorn = temp.getString("morn");
 
-                weatherDays.add(new WeatherDays(date, tempMax,tempMin, tempDay, tempNight, tempEve, tempMorn));
+                weatherDays.add(new WeatherDays(date, tempMax,tempMin, tempDay, tempNight, tempEve));
 
 
             }

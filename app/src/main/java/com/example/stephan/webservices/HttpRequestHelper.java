@@ -1,7 +1,5 @@
 package com.example.stephan.webservices;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +10,7 @@ import java.net.URL;
 /**
  * An request helper for the Open Weather API.
  * It requires a String search: a city and a String userTag is the kind of information u want.
- * The kind of information possible can be found: http://openweathermap.org/api
+ * Information about api: http://openweathermap.org/api
  */
 public class HttpRequestHelper {
 
@@ -30,7 +28,6 @@ public class HttpRequestHelper {
 
         // Get complete url
         String compeleteUrl = url1 + userTag + search + method + key;
-        Log.v("url", compeleteUrl);
 
         // Initialize url to null
         URL url = null;

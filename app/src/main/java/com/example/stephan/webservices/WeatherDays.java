@@ -10,19 +10,17 @@ public class WeatherDays {
     private String tempDay;     // temp in the day
     private String tempNight;   // temp in the night
     private String tempEve;     // temp in the evening
-    private String tempMorn;    // temp in the morning
 
     /**
      * initialize the day
      */
-    public WeatherDays(String datum, String max, String min, String day, String night, String eve, String morn){
+    public WeatherDays(String datum, String max, String min, String day, String night, String eve){
         date = datum;
         tempMax = max;
         tempMin = min;
         tempDay = day;
         tempNight = night;
         tempEve = eve;
-        tempMorn = morn;
     }
 
     /**
@@ -65,12 +63,5 @@ public class WeatherDays {
      */
     public String getTempEve(){
         return tempEve;
-    }
-
-    /**
-     * Get the morning
-     */
-    public String getTempMorn(){
-        return tempMorn;
     }
 }

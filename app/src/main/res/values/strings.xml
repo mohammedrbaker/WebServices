@@ -3,4 +3,7 @@
     <string name="hintEditText">Amsterdam, nl</string>
     <string name="seachButton">Search</string>
     <string name="recentSearch">Recent searches:</string>
+    <string name="emptySearchMessage">Please enter a place</string>
+    <string name="dailyWeather">" 7 days weather forecast:"</string>
+    <string name="errorMessage">An error appeared please try again.</string>
 </resources>

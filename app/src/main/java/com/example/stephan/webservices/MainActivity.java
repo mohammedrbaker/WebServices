@@ -1,7 +1,6 @@
 package com.example.stephan.webservices;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,23 +11,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Show current weather.
  */
 public class MainActivity extends AppCompatActivity implements TagAsyncTask.AsyncResponse {
 
-    TagAsyncTask asyncTask;             //
-    EditText userSearch;                //
-    ListView listView;                  //
-    WeatherAdapter adapter;             //
-    WeatherSingleton weatherManager;
+    TagAsyncTask asyncTask;                     // Make contact with the internet
+    EditText userSearch;                        // Get the city the users wants
+    ListView listView;                          // Listview to show adapter
+    WeatherAdapter adapter;                     // Adapter to show weather
+    WeatherSingleton weatherManager;            // Manage save and loading to/from file
     final String SEARCHMETHOD = "weather?q=";   // Search method for api
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog;              // Wait for data
 
     /**
      * On startup
@@ -61,7 +56,14 @@ public class MainActivity extends AppCompatActivity implements TagAsyncTask.Asyn
 
     }
 
+    /**
+     * Response from asynctask to set tell users they must be patient.
+     */
     public void updateProcess(String updateProcess){
+        // Remove dialog if there
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
         progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMessage(updateProcess);
         progressDialog.show();
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements TagAsyncTask.Asyn
             userSearch.setText("");
         }
         else{
-            Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.emptySearchMessage, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -92,7 +94,10 @@ public class MainActivity extends AppCompatActivity implements TagAsyncTask.Asyn
      * If an error happened result will contain the error message.
      */
     public void processFinish(String result){
-        progressDialog.dismiss();
+        // Remove dialog
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
 
         // get the WeatherNow from json
         try {

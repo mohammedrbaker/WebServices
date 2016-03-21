@@ -5,16 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -59,11 +49,11 @@ public class WeatherDayAdapter extends ArrayAdapter<WeatherDays> {
         // set all information
         WeatherDays weatherDays = weather.get(position);
         date.setText(weatherDays.getDate());
-        min.setText("min: " + weatherDays.getTempMin());
-        max.setText("max: " + weatherDays.getTempMax());
-        day.setText("day: " + weatherDays.getTempDay());
-        night.setText("night: " + weatherDays.getTempNight());
-        eve.setText("eve: " + weatherDays.getTempEve());
+        min.setText(("min: " + weatherDays.getTempMin()));
+        max.setText(("max: " + weatherDays.getTempMax()));
+        day.setText(("day: " + weatherDays.getTempDay()));
+        night.setText(("night: " + weatherDays.getTempNight()));
+        eve.setText(("eve: " + weatherDays.getTempEve()));
 
         // Done.
         return view;

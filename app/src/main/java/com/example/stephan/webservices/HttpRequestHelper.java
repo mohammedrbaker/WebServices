@@ -19,7 +19,7 @@ public class HttpRequestHelper {
     private static final String method = "&units=Metric";                           // use Celsius
 
     /**
-     * The HttpRequistHelper
+     * The HttpRequestHelper
      */
     protected static synchronized String downloadFromServer(String search, String userTag){
 
@@ -27,12 +27,12 @@ public class HttpRequestHelper {
         String returnValue = "";
 
         // Get complete url
-        String compeleteUrl = url1 + userTag + search + method + key;
+        String completeUrl = url1 + userTag + search + method + key;
 
         // Initialize url to null
         URL url = null;
         try {
-            url = new URL(compeleteUrl);
+            url = new URL(completeUrl);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

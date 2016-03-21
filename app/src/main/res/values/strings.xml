@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">WeatherApp-Stephan</string>
     <string name="hintEditText">Amsterdam, nl</string>
     <string name="seachButton">Search</string>
     <string name="recentSearch">Recent searches:</string>
